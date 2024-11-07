@@ -50,7 +50,7 @@ app.post("/api/shorturl", async (req, res) => {
         const originalUrl = req.body.url;
 
         if (!isUrlValid(originalUrl)) {
-            return res.json({ error: "invalid url" });
+            return res.json({ error: 'invalid url' });
         }
 
         let zhopaUrlRecords = await ZhopaUrl.where("original_url").equals(originalUrl).exec();
@@ -101,8 +101,9 @@ async function connect() {
 
 function isUrlValid(urlString) {
     try {
-        new URL(urlString);
-        return true;
+        return urlString
+            && urlString.startsWith('http')
+            &&!!new URL(urlString);
     } catch {
         return false;
     }
